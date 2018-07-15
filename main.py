@@ -1,5 +1,13 @@
 import pandas
+import quine
 
+def resultados():
+  global QA, Qf, Data, variaveis, nbits
+  for i in variaveis:
+    print(i, end = " = ")
+    print(quine.mccluskey(nbits, Data[i]))
+  print()
+  pass
 def SaidasQ():
   global QA, Qf, Data, variaveis, nbits
   bit = 0
@@ -30,8 +38,10 @@ def SaidasQ():
 def principal():
   global nbits, a, QA, Qf, Data
   print()
-  nbits = int(input("Numero de Bits: "))
-  a = str(input("Contagem: "))
+  nbits = 3
+  a = '12547'
+  #nbits = int(input("Numero de Bits: "))
+  #a = str(input("Contagem: "))
   global sizecont
   sizecont = len(a)
   for i in range(2**nbits):
@@ -65,6 +75,7 @@ sizecont = 0
 variaveis = []
 principal()
 SaidasQ()
-Data = pandas.DataFrame(Data)
-print(Data)
+Tabela = pandas.DataFrame(Data)
+print(Tabela)
 print()
+resultados()
