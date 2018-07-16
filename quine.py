@@ -1,5 +1,15 @@
 def mccluskey(bits,entradas):
 
+    def ResultadoSimples(saidas):
+        ExpressaoSimples = ''
+        qntde1 = saidas.count('1')
+        if all(i == "1" or i == 'x' or i == 'X' for i in saidas) and qntde1 > 0:
+            ExpressaoSimples += "1"
+            return True, ExpressaoSimples
+        elif all(i == "0" or i == "x" or i == "X" for i in saidas):
+            ExpressaoSimples += "0"
+            return True, ExpressaoSimples
+        return False, ExpressaoSimples
     def VerificaChave(chave, chavedepesquisa):
             incidencia = 0
             valores = []
@@ -119,20 +129,14 @@ def mccluskey(bits,entradas):
         return listaequacao, EquacaoPetrick
     def ResultadoFinal(essencialpiextraidos, letras, saidas):
         ExpressaoSimples = ''
-        qntde1 = saidas.count('1')
-        if all(i == "1" or i == 'x' or i == 'X' for i in saidas) and qntde1 > 0:
-            ExpressaoSimples += "1"
-        elif all(i == "0" or i == "x" or i == "X" for i in saidas):
-            ExpressaoSimples += "0"
-        else:
-            for binarios in list(essencialpiextraidos.values()):
-                for l in range(len(binarios)):
-                    if binarios[l] == "1":
-                        ExpressaoSimples += letras[l]
-                    elif binarios[l] == "0":
-                        ExpressaoSimples += letras[l] + u'\u0304'
-                if binarios != list(essencialpiextraidos.values())[-1]:
-                    ExpressaoSimples += " + "
+        for binarios in list(essencialpiextraidos.values()):
+            for l in range(len(binarios)):
+                if binarios[l] == "1":
+                    ExpressaoSimples += letras[l]
+                elif binarios[l] == "0":
+                    ExpressaoSimples += letras[l] + u'\u0304'
+            if binarios != list(essencialpiextraidos.values())[-1]:
+                ExpressaoSimples += " + "
         return ExpressaoSimples
     def OrganizaPI(primeimplicantes, implicantes):
         organizaPI = {}
@@ -300,14 +304,20 @@ def mccluskey(bits,entradas):
                 i = '0' + i[:len(i)] # se eu tenho 4 variaves; meu numero 1 por exemplo; ficará assim 0001.
             possibilidades.append(i) # Em seguida adiciono em uma lista onde estão ficarão as possibilidas da tabela verdade;
         return possibilidades
+    saidas = entradas
+    totaldevariaveis = bits
+    otimizacao, equacaosimples = ResultadoSimples(saidas)
+    if otimizacao:
+        return equacaosimples
     
     letras = []
-    totaldevariaveis = bits
     for i in range(totaldevariaveis):
         letras.append(chr(65+i))
+    
+    
     numerodepossibilidades = 2**totaldevariaveis
     possibilidades = Binarios(numerodepossibilidades)
-    saidas = entradas
+    
     ImplicantesOrdemZero, minitermos = ClassificaSaidas(possibilidades, saidas)
     Implicantes = ImplicantesOrdemZero
     ImplicantesGeral = []
