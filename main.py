@@ -1,20 +1,24 @@
-import pandas 
+import pandas
 import quine
+
+def ConverteBinDec(binario, bits): 
+  decimal = int()
+  expoente = bits-1
+  for i in binario:
+    if i == '1':
+      decimal += 2**expoente
+    expoente -= 1
+  return decimal
 
 def resultados(Data):
   global QA, Qf, variaveis, nbits, varcontrl, sizecont
   nvariaveis = nbits+varcontrl
-
-  enderecos = []
-  for i in range(2**nvariaveis):
-    enderecos.append('{0:b}'.format(int(i)).zfill(nvariaveis))
-
   for i in variaveis:
     tabletrue = ['X']*(2**nvariaveis) 
     for j in range(sizecont):
-      adr = enderecos.index(QA[j])
+      adr = ConverteBinDec(QA[j], nvariaveis)
       tabletrue[adr] = Data[i][j]
-    print(i, end = " = ")
+    print(str(i) + " = ",  end="")
     print(quine.mccluskey(nvariaveis, tabletrue))
   print()
   pass
@@ -67,7 +71,10 @@ def principal():
 
   for i in range(len(QA)):
     if i == len(QA)-1:
-      Qf.append(QA[0])
+      if (contagem[0] == '0'):
+        Qf.append(QA[0])
+      else:
+        Qf.append(QA[1])
     else:
       Qf.append(QA[i+1])
 
