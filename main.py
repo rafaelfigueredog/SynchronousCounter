@@ -2,12 +2,8 @@ import pandas
 import quine
 
 def ConverteBinDec(binario, bits): 
-  decimal = int()
-  expoente = bits-1
-  for i in binario:
-    if i == '1':
-      decimal += 2**expoente
-    expoente -= 1
+  binario = "0b" + binario
+  decimal = int(binario,2)
   return decimal
 
 def resultados(Data):
