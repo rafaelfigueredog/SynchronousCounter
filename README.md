@@ -1,7 +1,7 @@
 # SynchronousCounter
 
 Colaboradores:
-Rafael Guimarães
-Moab Barbosa
-Allan Bispo
+Rafael Guimarães,
+Moab Barbosa,
+Allan Bispo,
 João Messias
