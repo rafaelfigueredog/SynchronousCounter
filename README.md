@@ -9,5 +9,5 @@ João Messias
 
 # Pré-requisitos para utilização; 
 
-  - Python 3. \
-  - Biblioteca pandas \
+  - Python 3. 
+  - Biblioteca pandas 
